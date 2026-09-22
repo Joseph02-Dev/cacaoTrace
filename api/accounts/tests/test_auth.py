@@ -3,8 +3,8 @@ from rest_framework.test import APIClient
 
 from accounts.models import Company, User, Village
 
-LOGIN_URL = "/api/auth/login"
-REFRESH_URL = "/api/auth/refresh"
+LOGIN_URL = "/api/v1/auth/login"
+REFRESH_URL = "/api/v1/auth/refresh"
 
 
 class LoginTests(TestCase):

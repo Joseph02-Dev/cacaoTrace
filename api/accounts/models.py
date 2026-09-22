@@ -54,8 +54,14 @@ class Village(models.Model):
     class Meta:
         db_table = "villages"
         constraints = [
+            # Unicité seulement parmi les villages actifs : des propositions en
+            # attente (US-205 / P3) peuvent porter un nom déjà proposé ailleurs,
+            # l'admin les fusionne ensuite (merged_into). "active" == STATUS_ACTIVE
+            # (valeur littérale nécessaire : Meta ne voit pas l'espace de noms de Village).
             models.UniqueConstraint(
-                fields=["company", "name"], name="unique_village_name_per_company"
+                fields=["company", "name"],
+                condition=models.Q(status="active"),
+                name="unique_active_village_name_per_company",
             )
         ]
 

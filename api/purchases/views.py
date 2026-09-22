@@ -3,7 +3,11 @@ import uuid
 from django.db import transaction
 from django.utils import timezone
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
+
+from accounts.models import Village
+from accounts.services import propose_village, serialize_village
 
 from .models import Purchase, SyncOperation
 from .services import (
@@ -14,11 +18,16 @@ from .services import (
     update_purchase,
 )
 
-ALLOWED_TYPES = {"purchase.create", "purchase.update", "purchase.cancel"}
+ALLOWED_TYPES = {
+    "purchase.create", "purchase.update", "purchase.cancel", "village.propose",
+}
 
 
 class SyncView(APIView):
     """POST /api/sync — contrat figé dans dev-cacaotrack-gn.md (API-2 + API-4)."""
+
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "sync"
 
     def post(self, request):
         raw_operations = request.data.get("operations")
@@ -85,6 +94,14 @@ class SyncView(APIView):
     def _apply(user, op) -> dict:
         op_id, op_type, entity_id = op["op_id"], op["type"], op["entity_id"]
         try:
+            if op_type == "village.propose":
+                if Village.objects.filter(id=entity_id).exists():
+                    raise OperationError("already_exists")
+                village = propose_village(village_id=entity_id, user=user, payload=op["payload"])
+                return {
+                    "op_id": str(op_id), "status": "applied", "village": serialize_village(village),
+                }
+
             if op_type == "purchase.create":
                 if Purchase.objects.filter(id=entity_id).exists():
                     raise OperationError("already_exists")

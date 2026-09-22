@@ -47,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "config.middleware.AppVersionLoggingMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -115,6 +116,19 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_THROTTLE_RATES": {
+        "login": env("THROTTLE_LOGIN_RATE", default="20/min"),
+        "sync": env("THROTTLE_SYNC_RATE", default="120/min"),
+    },
+}
+
+# C6 (architecture) : cache partagé en base, pas en mémoire du processus — nécessaire
+# avec plusieurs workers Gunicorn. Table créée par `python manage.py createcachetable`.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "django_cache",
+    }
 }
 
 # Jeton d'accès court, jeton de renouvellement long (architecture §5).

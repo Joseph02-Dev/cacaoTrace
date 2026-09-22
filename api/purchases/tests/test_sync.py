@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from accounts.models import Company, User, Village
 from purchases.models import Purchase, PurchaseSequence, SyncOperation
 
-SYNC_URL = "/api/sync"
+SYNC_URL = "/api/v1/sync"
 
 
 def op(op_type, entity_id, payload, base_version=None, op_id=None, reason=None):

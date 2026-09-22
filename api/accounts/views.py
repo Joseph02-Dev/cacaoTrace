@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -49,6 +50,8 @@ class LoginView(APIView):
     """POST /api/auth/login — contrat figé dans dev-cacaotrack-gn.md (API-1 + API-4)."""
 
     permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "login"
 
     def post(self, request):
         identifier = (request.data.get("identifier") or "").strip().lower()

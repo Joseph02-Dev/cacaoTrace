@@ -9,19 +9,11 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from accounts.models import User, Village
+from common.errors import OperationError
 
 from .models import Purchase, PurchaseHistory, PurchaseSequence
 
 PHONE_RE = re.compile(r"^\+224[67]\d{8}$")
-
-
-class OperationError(Exception):
-    """Rejet définitif d'une opération : code + erreurs par champ."""
-
-    def __init__(self, code: str, errors: dict | None = None):
-        self.code = code
-        self.errors = errors or {}
-        super().__init__(code)
 
 
 def normalize_guinea_phone(raw: str) -> str:

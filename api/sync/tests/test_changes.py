@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from accounts.models import Company, User, Village
 from purchases.models import Purchase
 
-CHANGES_URL = "/api/sync/changes"
+CHANGES_URL = "/api/v1/sync/changes"
 
 
 def make_purchase(company, collector, village, **overrides):

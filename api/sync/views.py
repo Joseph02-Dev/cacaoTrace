@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.utils import timezone
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from accounts.models import Village
@@ -41,6 +42,9 @@ class SyncChangesView(APIView):
     des doublons sont alors possibles (le téléphone les tolère, cf. contrat), afin de
     ne jamais rater un achat dont l'écriture se termine juste après la lecture.
     """
+
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "sync"
 
     def get(self, request):
         limit_raw = request.query_params.get("limit")
