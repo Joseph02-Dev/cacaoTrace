@@ -1,0 +1,58 @@
+name: cacaotrack
+description: >
+  CacaoTrack GN — application mobile de traçabilité cacao
+  (registre d'achats offline-first, Guinée forestière).
+publish_to: 'none'
+version: 0.1.0+1
+
+# Cible : Flutter 3.47.5 / Dart 3.13 (dev-cacaotrack-gn.md).
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+
+  # Socle P6 (architecture-cacaotrack-gn.md) : état, navigation, réseau, secrets.
+  flutter_riverpod: ^2.6.1
+  go_router: ^14.6.2
+  dio: ^5.7.0
+  flutter_secure_storage: ^9.2.2
+  package_info_plus: ^8.1.1 # en-tête X-App-Version (P2)
+
+  # Base locale chiffrée (P1).
+  drift: ^2.21.0
+  sqlite3: ^2.4.6
+  sqlcipher_flutter_libs: ^0.6.4
+  path_provider: ^2.1.4
+  path: ^1.9.0
+
+  uuid: ^4.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  drift_dev: ^2.21.0
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true
+  generate: true # active `flutter gen-l10n` (voir l10n.yaml)
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope.ttf
+          weight: 700
+    - family: BricolageGrotesque
+      fonts:
+        - asset: assets/fonts/BricolageGrotesque.ttf
+          weight: 600
+        - asset: assets/fonts/BricolageGrotesque.ttf
+          weight: 700

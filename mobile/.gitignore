@@ -1,0 +1,23 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+
+# Fichiers générés (build_runner, gen-l10n) — régénérés localement/CI,
+# voir README.md « Mobile (Flutter) ».
+**/*.g.dart
+lib/l10n/app_localizations.dart
+lib/l10n/app_localizations_*.dart
+
+# Plateformes natives — générées via `flutter create .` (non versionnées
+# tant que MOB-1b n'a pas été validé par le Lead Developer, cf. rapport de ticket)
+/android/
+/ios/
+
+# Secrets de signature
+*.jks
+key.properties

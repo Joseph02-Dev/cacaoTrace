@@ -1,0 +1,21 @@
+{
+  "@@locale": "fr",
+
+  "appTitle": "CacaoTrack GN",
+  "@appTitle": {
+    "description": "Nom de l'application, affiché sur l'écran d'accueil du téléphone."
+  },
+
+  "commonSave": "Enregistrer",
+  "commonCancel": "Annuler",
+  "commonRetry": "Réessayer",
+  "syncNow": "Synchroniser maintenant",
+
+  "statusPendingSync": "À synchroniser",
+  "statusQueued": "En attente",
+  "statusSyncing": "En cours",
+  "statusSynced": "Synchronisé",
+  "statusError": "En erreur",
+  "statusNeedsReview": "À trancher",
+  "statusCancelled": "Annulé"
+}
