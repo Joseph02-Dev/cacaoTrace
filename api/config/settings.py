@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "accounts",
+    "purchases",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,6 @@ SIMPLE_JWT = {
 # Verrouillage de connexion (US-801 / architecture §5) — en base, pas en mémoire.
 LOGIN_MAX_FAILED_ATTEMPTS = env.int("LOGIN_MAX_FAILED_ATTEMPTS", default=5)
 LOGIN_LOCK_MINUTES = env.int("LOGIN_LOCK_MINUTES", default=15)
+
+# P5 (architecture) : écart signalé sans bloquer si l'horloge du téléphone dérive.
+CLOCK_SKEW_HOURS = env.int("CLOCK_SKEW_HOURS", default=24)
