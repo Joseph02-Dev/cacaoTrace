@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "accounts",
     "purchases",
+    "sync",
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,8 @@ LOGIN_LOCK_MINUTES = env.int("LOGIN_LOCK_MINUTES", default=15)
 
 # P5 (architecture) : écart signalé sans bloquer si l'horloge du téléphone dérive.
 CLOCK_SKEW_HOURS = env.int("CLOCK_SKEW_HOURS", default=24)
+
+# Lecture descendante /api/sync/changes (API-3).
+SYNC_DEFAULT_LIMIT = env.int("SYNC_DEFAULT_LIMIT", default=200)
+SYNC_MAX_LIMIT = env.int("SYNC_MAX_LIMIT", default=500)
+SYNC_PULL_OVERLAP_SECONDS = env.int("SYNC_PULL_OVERLAP_SECONDS", default=120)
